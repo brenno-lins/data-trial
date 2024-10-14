@@ -1,0 +1,27 @@
+{
+    "columns_cast_to_string": [
+        "usdot_num"
+    ],
+    "id_columns_cast_to_string": [
+        "reviews_id",
+        "author_id",
+        "cid",
+        "owner_id",
+        "reviews_id"
+    ],
+    "ensure_seconds_in_columns": [
+        "owner_answer_timestamp_datetime_utc",
+        "review_datetime_utc"
+    ],
+    "columns_cast_to_datetime": [
+        "date_created",
+        "date_updated",
+        "safety_review_date",
+        "owner_answer_timestamp_datetime_utc",
+        "review_datetime_utc"
+    ],
+    "timestamp_columns_cast_to_datetime": [
+        "owner_answer_timestamp",
+        "review_timestamp"
+    ]
+}

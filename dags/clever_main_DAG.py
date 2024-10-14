@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
-from scripts.clever_main_pipeline import upload_to_postgres
+from scripts.clever_main_pipeline import clean_and_upload_to_postgres
 
 default_args = {
     "owner": "alec.ventura",
@@ -32,10 +32,10 @@ with DAG(
     for file in datasets:
         file_without_extension = file.split('.')[0]
 
-        task_id = f"upload_to_postgres_{file_without_extension}"
+        task_id = f"clean_and_upload_to_postgres_{file_without_extension}"
         upload_to_postgres_task = PythonOperator(
             task_id=task_id,
-            python_callable=upload_to_postgres,
+            python_callable=clean_and_upload_to_postgres,
             dag=dag,
             execution_timeout=timedelta(seconds=60),
             op_kwargs={
