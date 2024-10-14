@@ -10,12 +10,12 @@ default_args = {
 }
 
 datasets = [
-    'fmcsa_complaints.csv',
-    'fmcsa_safer_data.csv',
-    'fmcsa_company_snapshot.csv',
-    'fmcsa_companies.csv',
-    'customer_reviews_google.csv',
-    'company_profiles_google_maps.csv'
+    "fmcsa_complaints.csv",
+    "fmcsa_safer_data.csv",
+    "fmcsa_company_snapshot.csv",
+    "fmcsa_companies.csv",
+    "customer_reviews_google.csv",
+    "company_profiles_google_maps.csv",
 ]
 
 with DAG(
@@ -26,11 +26,11 @@ with DAG(
     max_active_runs=1,
 ) as dag:
 
-    start_task = EmptyOperator(task_id='Start', dag=dag)
-    finish_task = EmptyOperator(task_id='Finish', dag=dag)
+    start_task = EmptyOperator(task_id="Start", dag=dag)
+    finish_task = EmptyOperator(task_id="Finish", dag=dag)
 
     for file in datasets:
-        file_without_extension = file.split('.')[0]
+        file_without_extension = file.split(".")[0]
 
         task_id = f"clean_and_upload_to_postgres_{file_without_extension}"
         upload_to_postgres_task = PythonOperator(
@@ -38,9 +38,7 @@ with DAG(
             python_callable=clean_and_upload_to_postgres,
             dag=dag,
             execution_timeout=timedelta(seconds=60),
-            op_kwargs={
-                "file_name": file
-            }
+            op_kwargs={"file_name": file},
         )
 
         start_task.set_downstream(upload_to_postgres_task)

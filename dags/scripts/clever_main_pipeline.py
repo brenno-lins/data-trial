@@ -4,12 +4,12 @@ from scripts.df_cleaner import DataFrameCleaner
 
 
 def clean_and_upload_to_postgres(**kwargs):
-    file_name = kwargs.get('file_name')
-    table_name = file_name.split('.')[0]
-    
+    file_name = kwargs.get("file_name")
+    table_name = file_name.split(".")[0]
+
     raw_df = pd.read_csv(
-        f'dags/scripts/data_examples/{file_name}',
-        escapechar='\\',
+        f"dags/scripts/data_examples/{file_name}",
+        escapechar="\\",
     )
 
     df_cleaner = DataFrameCleaner()
